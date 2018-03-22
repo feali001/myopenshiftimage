@@ -12,7 +12,9 @@ ENV LIGHTTPD_Version=1.4.35
 LABEL io.k8s.description="Platform for serving static HTML files" \
       io.k8s.display-name="Lighttpd 1.4.35" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,html,lighttpd"
+      io.openshift.tags="builder,html,lighttpd" \
+      io.openshift.s2i.destination="/opt/app" \
+      io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
 # TODO: Install required packages here:
 RUN yum install -y epel-release && yum install -y lighttpd  && yum clean all -y
@@ -20,10 +22,8 @@ RUN yum install -y epel-release && yum install -y lighttpd  && yum clean all -y
 # TODO (optional): Copy the builder files into /opt/app-root
 # COPY ./<builder_folder>/ /opt/app-root/
 
-# TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
-LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 # sets io.openshift.s2i.scripts-url label that way, or update that label
-COPY ./s2i/bin/ /usr/local/s2i
+COPY ./s2i/ /usr/local/s2i
 
 COPY ./etc/ /opt/app-root/etc
 
