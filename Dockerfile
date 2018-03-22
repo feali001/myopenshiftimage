@@ -6,19 +6,17 @@ FROM openshift/base-centos7
 MAINTAINER Felix Alipaz
 
 # TODO: Rename the builder environment variable to inform users about application you provide them
-ENV LIGHTTPD_Version=1.4.35
+ENV LIGHTTPD_VERSION=1.4.35
 
 #Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for serving static HTML files" \
       io.k8s.display-name="Lighttpd 1.4.35" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,html,lighttpd" \
-      io.openshift.s2i.destination="/opt/app" \
       io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
 # TODO: Install required packages here:
 RUN yum install -y epel-release && yum install -y lighttpd  && yum clean all -y
-
 # TODO (optional): Copy the builder files into /opt/app-root
 # COPY ./<builder_folder>/ /opt/app-root/
 

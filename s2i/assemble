@@ -5,6 +5,5 @@
 # For more information refer to the documentation:
 #  https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
-
 echo "---> Installing application source"
 cp -Rf /tmp/src/. ./
